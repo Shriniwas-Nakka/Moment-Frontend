@@ -2,7 +2,7 @@ import './MainPage.scss';
 import logo from "../../assets/images/logo.png";
 import SignUp from '../../components/SignUp/SignUp';
 import SignIn from '../../components/SignIn/SignIn';
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 export default function MainPage() {
     return (

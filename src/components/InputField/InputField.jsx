@@ -1,4 +1,8 @@
 import TextField from '@material-ui/core/TextField';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
 import './InputField.scss'
 
 export default function InputField(props) {
@@ -33,11 +37,25 @@ export default function InputField(props) {
                     />
                 } */}
                 <TextField
+                    type={props.type}
                     id="standard-full-width"
                     placeholder={props.placeholder}
                     fullWidth
+                    size="small"
                     InputLabelProps={{
                         shrink: true,
+                    }}
+                    InputProps={{
+                        endAdornment:
+                            props.type === "password" && <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                >
+                                    <Visibility />
+                                    {/* {values.showPassword ? <Visibility /> : <VisibilityOff />} */}
+                                </IconButton>
+                            </InputAdornment>
+
                     }}
                 />
             </div>

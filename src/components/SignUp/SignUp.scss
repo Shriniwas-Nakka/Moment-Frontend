@@ -24,7 +24,7 @@
         color: #001b30;
     }
     .s-c-inputfield {
-        @include dimension(55%);
+        @include dimension(75%);
         @include flexbox(column, center, center);
         // @include padding(0px, 15%);
         .s-c-i-row {
