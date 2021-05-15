@@ -1,0 +1,48 @@
+//Font
+@mixin font($ft-style: normal, $ft-varient: normal, $ft-weight: normal, $ft-size: 16px, $ft-family: $default-font) {
+    font: $ft-style $ft-varient $ft-weight $ft-size $ft-family;
+}
+
+//Font-Size
+@mixin fontSize($ft-size) {
+    font-size: $ft-size;
+}
+
+//Font-Weight
+@mixin fontWeight($ft-weight) {
+    font-weight: $ft-weight;
+}
+
+//Width & Height mixin
+@mixin dimension($width, $height) {
+    width: $width;
+    height: $height;
+}
+
+//Padding mixin
+@mixin padding($top: null, $right: null, $bottom: null, $left: null) {
+    padding: $top $right $bottom $left;
+}
+
+//Margin mixin
+@mixin margin($top: null, $right: null, $bottom: null, $left: null) {
+    margin: $top $right $bottom $left;
+}
+
+//Border
+@mixin border($size, $type: solid, $color: null) {
+    border: $size $type $color;
+}
+
+//Border Radius
+@mixin borderRadius($top: null, $right: null, $bottom: null, $left: null) {
+    border-radius: $top $right $bottom $left;
+}
+
+//Flexbox
+@mixin flexbox($direction, $j-s-align, $a-i-align) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $j-s-align;
+    align-items: $a-i-align;
+}
