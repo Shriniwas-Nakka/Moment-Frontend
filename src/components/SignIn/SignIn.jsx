@@ -2,11 +2,18 @@ import InputField from '../InputField/InputField';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HttpsIcon from '@material-ui/icons/Https';
 import './SignIn.scss';
+import { useState } from 'react';
 
 export default function SignIn(props) {
 
+    const [show, setShow] = useState(false);
+
     let handleRedirect = () => {
         props.history.push('/signup');
+    }
+
+    let handlePasswordShow = () => {
+        setShow(!show);
     }
 
     return (
@@ -16,7 +23,7 @@ export default function SignIn(props) {
             <div className="s-c-inputfield">
                 <div className="s-c-i-row">
                     <InputField label="Email ID" placeholder="Enter Email ID" icon={<MailOutlineIcon />} style={{ width: '100%' }} type="email" />
-                    <InputField label="Password" placeholder="Enter Password" icon={<HttpsIcon />} style={{ width: '100%' }} type="password" />
+                    <InputField label="Password" placeholder="Enter Password" icon={<HttpsIcon />} style={{ width: '100%' }} type="password" handlePasswordShow={handlePasswordShow} passwordHide={show} />
                 </div>
             </div>
             <button className="s-c-button">Sign In</button>

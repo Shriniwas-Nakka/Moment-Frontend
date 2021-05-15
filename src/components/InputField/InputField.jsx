@@ -36,8 +36,9 @@ export default function InputField(props) {
                         }}
                     />
                 } */}
+                {props.passwordHide}
                 <TextField
-                    type={props.type}
+                    type={props.passwordHide ? 'password' : 'text' || props.type}
                     id="standard-full-width"
                     placeholder={props.placeholder}
                     fullWidth
@@ -50,9 +51,9 @@ export default function InputField(props) {
                             props.type === "password" && <InputAdornment position="end">
                                 <IconButton
                                     aria-label="toggle password visibility"
+                                    onClick={props.handlePasswordShow}
                                 >
-                                    <Visibility />
-                                    {/* {values.showPassword ? <Visibility /> : <VisibilityOff />} */}
+                                    {props.passwordHide ? <VisibilityOff /> : <Visibility />}
                                 </IconButton>
                             </InputAdornment>
 

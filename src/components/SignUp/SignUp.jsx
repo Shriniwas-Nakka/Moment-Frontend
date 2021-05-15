@@ -4,11 +4,18 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HttpsIcon from '@material-ui/icons/Https';
 import CallIcon from '@material-ui/icons/Call';
 import './SignUp.scss';
+import { useState } from 'react';
 
 export default function SignUp(props) {
 
+    const [show, setShow] = useState(false);
+
     let handleRedirect = () => {
         props.history.push('/signin');
+    }
+
+    let handlePasswordShow = () => {
+        setShow(!show);
     }
 
     return (
@@ -26,7 +33,7 @@ export default function SignUp(props) {
                 </div>
                 <div className="s-c-i-row">
                     <InputField label="City" placeholder="Enter City" style={{ width: '100%', marginRight: '15%' }} />
-                    <InputField label="Password" placeholder="Enter Password" icon={<HttpsIcon />} type="password" style={{ width: '100%' }} />
+                    <InputField label="Password" placeholder="Enter Password" icon={<HttpsIcon />} type="password" style={{ width: '100%' }} handlePasswordShow={handlePasswordShow} passwordHide={show} />
                 </div>
             </div>
             <button className="s-c-button">Submit</button>
