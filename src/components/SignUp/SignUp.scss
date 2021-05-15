@@ -3,7 +3,7 @@
 
 .signup-container {
     @include dimension(100%);
-    @include flexbox(column, center, center);
+    @include flexbox(column, flex-start, center);
     .s-c-title {
         font-family: Maven Pro;
         font-style: normal;
@@ -70,16 +70,44 @@
     }
 }
 
+@media only screen and (min-width: 1367px) {
+    .signup-container {
+        .s-c-inputfield {
+            @include dimension(650px);
+        }
+    }
+}
+
 @media only screen and (max-width: 1040px) {
     .signup-container {
         .s-c-inputfield {
+            @include dimension(60%);
+        }
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .signup-container {
+        .s-c-inputfield {
+            @include dimension(70%);
+        }
+    }
+}
+
+@media only screen and (max-width: 660px) {
+    .signup-container {
+        .s-c-inputfield {
+            @include dimension(80%);
+        }
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .signup-container {
+        .s-c-inputfield {
             @include dimension(100%);
-            // @include flexbox(column, center, center);
-            // @include padding(0px, 15%);
             .s-c-i-row {
-                @include dimension(100%);
                 @include flexbox(column, space-between, center);
-                // flex-wrap: wrap;
             }
         }
     }
