@@ -1,7 +1,7 @@
 @import "../../styles/styles.scss";
 @import "../../styles/constants.scss";
 
-.signup-container {
+.signin-container {
     @include dimension(100%);
     @include flexbox(column, flex-start, center);
     @include padding(0px, 10%);
@@ -24,13 +24,11 @@
         color: #001b30;
     }
     .s-c-inputfield {
-        @include dimension(55%);
+        @include dimension(30%);
         @include flexbox(column, center, center);
-        // @include padding(0px, 15%);
         .s-c-i-row {
             @include dimension(100%);
-            @include flexbox(row, space-between);
-            // flex-wrap: wrap;
+            @include flexbox(column, space-between, center);
         }
     }
     .s-c-button {
@@ -73,7 +71,7 @@
 }
 
 @media only screen and (min-width: 1367px) {
-    .signup-container {
+    .signin-container {
         .s-c-inputfield {
             @include dimension(650px);
         }
@@ -81,31 +79,31 @@
 }
 
 @media only screen and (max-width: 1040px) {
-    .signup-container {
+    .signin-container {
         .s-c-inputfield {
-            @include dimension(75%);
+            @include dimension(60%);
         }
     }
 }
 
 @media only screen and (max-width: 800px) {
-    .signup-container {
+    .signin-container {
         .s-c-inputfield {
-            @include dimension(90%);
+            @include dimension(70%);
         }
     }
 }
 
 @media only screen and (max-width: 660px) {
-    .signup-container {
+    .signin-container {
         .s-c-inputfield {
-            @include dimension(100%);
+            @include dimension(80%);
         }
     }
 }
 
 @media only screen and (max-width: 560px) {
-    .signup-container {
+    .signin-container {
         .s-c-inputfield {
             @include dimension(100%);
             .s-c-i-row {

@@ -1,7 +1,3 @@
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import PersonIcon from '@material-ui/icons/Person';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import InputField from '../InputField/InputField';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
