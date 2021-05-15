@@ -1,9 +1,10 @@
-import './App.css';
+import './App.scss';
+import MainPage from './pages/Main Page/MainPage';
 
 function App() {
   return (
     <div className="App">
-      Moments
+      <MainPage></MainPage>
     </div>
   );
 }

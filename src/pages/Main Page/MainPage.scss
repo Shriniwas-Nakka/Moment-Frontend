@@ -1,0 +1,17 @@
+@import "../../styles/styles.scss";
+@import "../../styles/constants.scss";
+
+.container {
+    @include dimension(100%, 100vh);
+    background-color: $bg-color1;
+    .logo {
+        @include margin(30px, 30px);
+    }
+    .inner-container {
+        @include dimension(100%);
+        min-height: calc(100vh - 181px);
+        background-color: $bg-color3;
+        border-top-left-radius: 25px;
+        @include flexbox(row, center);
+    }
+}

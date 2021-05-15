@@ -1,0 +1,86 @@
+@import "../../styles/styles.scss";
+@import "../../styles/constants.scss";
+
+.signup-container {
+    @include dimension(100%);
+    @include flexbox(column, center, center);
+    .s-c-title {
+        font-family: Maven Pro;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 40px;
+        line-height: 47px;
+        color: #001b30;
+        margin-bottom: 0px;
+    }
+    .s-c-text {
+        margin-top: 10px;
+        font-family: Maven Pro;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 23px;
+        color: #001b30;
+    }
+    .s-c-inputfield {
+        @include dimension(45%);
+        @include flexbox(column, center, center);
+        // @include padding(0px, 15%);
+        .s-c-i-row {
+            @include dimension(100%);
+            @include flexbox(row, space-between);
+            // flex-wrap: wrap;
+        }
+    }
+    .s-c-button {
+        background-color: $bg-color1;
+        height: 50px;
+        width: 184px;
+        border-radius: 25px;
+        color: $bg-color3;
+        font-family: Maven Pro;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: bold;
+        line-height: 24px;
+        letter-spacing: 0em;
+        text-align: center;
+        @include margin(30px, 0px);
+        outline: none;
+        border: none;
+        cursor: pointer;
+    }
+    .s-c-member {
+        font-family: Maven Pro;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 31px;
+        color: #545454;
+        margin-top: 0px;
+        margin-bottom: 30px;
+        .s-c-signin {
+            font-family: Maven Pro;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 31px;
+            color: #000000;
+        }
+    }
+}
+
+@media only screen and (max-width: 1040px) {
+    .signup-container {
+        .s-c-inputfield {
+            @include dimension(100%);
+            // @include flexbox(column, center, center);
+            // @include padding(0px, 15%);
+            .s-c-i-row {
+                @include dimension(100%);
+                @include flexbox(column, space-between, center);
+                // flex-wrap: wrap;
+            }
+        }
+    }
+}

@@ -14,7 +14,7 @@
 }
 
 //Width & Height mixin
-@mixin dimension($width, $height) {
+@mixin dimension($width: null, $height: null) {
     width: $width;
     height: $height;
 }
@@ -40,9 +40,9 @@
 }
 
 //Flexbox
-@mixin flexbox($direction, $j-s-align, $a-i-align) {
+@mixin flexbox($direction, $j-s-content: normal, $a-i-align: normal) {
     display: flex;
     flex-direction: $direction;
-    justify-content: $j-s-align;
+    justify-content: $j-s-content;
     align-items: $a-i-align;
 }

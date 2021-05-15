@@ -1,0 +1,27 @@
+@import "../../styles/styles.scss";
+
+.inputField-Container {
+    @include flexbox(column, center, flex-start);
+    @include padding(15px, 0px);
+    .i-c-label {
+        font-family: Maven Pro;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 550;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #001b30;
+        margin-bottom: 6px;
+    }
+    .i-c-box {
+        @include flexbox(row, flex-start, center);
+        .i-c-icon {
+            height: 31px;
+            width: 40px;
+            margin-right: 8px;
+            border-bottom: 1px solid gray;
+            color: lightgrey;
+        }
+    }
+}
