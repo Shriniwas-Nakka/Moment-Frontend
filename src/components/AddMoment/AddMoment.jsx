@@ -12,7 +12,6 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import InputField from '../InputField/InputField';
 import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
 import Tag from '../Tag/Tag';
@@ -44,6 +43,8 @@ const rows = [
 export default function AddMoment(props) {
     const classes = useStyles();
     const [tags, setTags] = React.useState([]);
+    const [image, setImage] = React.useState("");
+    const inputFile = React.useRef(null);
 
     const addTags = e => {
         if (e.key === "Enter" && e.target.value !== "") {
@@ -56,6 +57,21 @@ export default function AddMoment(props) {
         setTags([...tags.filter(tag => tags.indexOf(tag) !== index)]);
     };
 
+    const handleFileUpload = e => {
+        const { files } = e.target;
+        if (files && files.length) {
+            const filename = files[0].name;
+            var parts = filename.split(".");
+            const fileType = parts[parts.length - 1];
+            console.log("fileType", fileType);
+            setImage(files[0]);
+        }
+    };
+
+    const onHandleBrowse = () => {
+        inputFile.current.click();
+    };
+
     return (
         <div className="a-m-container">
             <div className="a-m-header"><span className="a-m-h-title">{props.title}</span></div>
@@ -63,13 +79,7 @@ export default function AddMoment(props) {
                 <InputField label="Title" placeholder="Sample title" style={{ width: '100%' }} type="text" />
                 <div className="a-m-add-tags">
                     <div className="a-m-tag">
-                        {/* <InputField label="Tags" placeholder="Enter tags" style={{ width: '100%' }} type="text" /> */}
                         <div className="a-m-input-tag">
-                            {/* <InputAdornment position="start" style={{ flexWrap: 'wrap' }} >
-                                {tags.map((tag, index) => (
-                                    <Tag name={tag} index={index} removeTag={removeTag} />
-                                ))}
-                            </InputAdornment> */}
                             <TextField
                                 className={classes.margin}
                                 id="input-with-icon-textfield"
@@ -101,7 +111,12 @@ export default function AddMoment(props) {
                             <CloudUploadOutlinedIcon className="d-d-icon" />
                             <p>Drag and drop file</p>
                             <span>OR</span>
-                            <button className="d-d-button">Browse</button>
+                            <input type="file"
+                                ref={inputFile}
+                                onChange={handleFileUpload}
+                                className="d-d-button"
+                                style={{ display: 'none' }} />
+                            <button className="d-d-button" onClick={onHandleBrowse}>Browse</button>
                         </div>
                     </div>
                 </div>
