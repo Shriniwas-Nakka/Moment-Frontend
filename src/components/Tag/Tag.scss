@@ -1,0 +1,19 @@
+@import "../../styles/styles.scss";
+@import "../../styles/constants.scss";
+
+.tag-body {
+    min-width: 56px;
+    height: 27px;
+    border: 1px solid #24be8b;
+    box-sizing: border-box;
+    border-radius: 13.5px;
+    @include flexbox(row, space-between, center);
+    padding: 0px 8px 0px 12px;
+    margin-left: 8px;
+    margin-bottom: 4px;
+    .t-b-close {
+        margin-left: 2px;
+        height: 18px;
+        color: #013136;
+    }
+}

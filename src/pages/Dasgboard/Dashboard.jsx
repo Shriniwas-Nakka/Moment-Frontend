@@ -206,7 +206,12 @@ export default function Dashboard() {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                <Route exact path="/dashboard/addMoment" component={AddMomemt} />
+                <Route exact path="/dashboard/addMoment" >
+                    <AddMomemt type="add" title="Add new moment" />
+                </Route>
+                <Route exact path="/dashboard/moments" >
+                    <AddMomemt type="list" title="Moments" />
+                </Route>
             </main>
         </div>
     );
