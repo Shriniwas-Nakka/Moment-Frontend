@@ -16,7 +16,7 @@
     }
     .i-c-box {
         width: 100%;
-        @include flexbox(row, flex-start, center);
+        @include flexbox(row, flex-start, flex-start);
         .i-c-icon {
             height: 28px;
             width: 40px;

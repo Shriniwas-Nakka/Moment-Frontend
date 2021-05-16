@@ -6,6 +6,11 @@ import IconButton from '@material-ui/core/IconButton';
 import './InputField.scss'
 
 export default function InputField(props) {
+
+    let handleChange = e => {
+        props.handleChange(e);
+    }
+
     return (
         <div className="inputField-Container" style={{ ...props.style }}>
             <span className="i-c-label">{props.label}</span>
@@ -15,27 +20,6 @@ export default function InputField(props) {
                         {props.icon}
                     </div>
                 }
-                {/* {props.mobileIcon === "mobile" &&
-                    <TextField
-                        // className="i-c-icon"
-                        // margin="dense"
-                        style={{ marginRight: '5px' }}
-                        id="standard-select-currency-native"
-                        select
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <AccountCircle style={{ color: 'lightgrey', width: '40px' }} />
-                                </InputAdornment>
-                            ),
-                        }}
-                        // value={currency}
-                        // onChange={handleChange}
-                        SelectProps={{
-                            native: true,
-                        }}
-                    />
-                } */}
                 {props.passwordHide}
                 <TextField
                     type={props.passwordHide ? 'password' : 'text' || props.type}
@@ -43,9 +27,12 @@ export default function InputField(props) {
                     placeholder={props.placeholder}
                     fullWidth
                     size="small"
+                    name={props.name}
                     InputLabelProps={{
                         shrink: true,
                     }}
+                    error={props.error}
+                    helperText={props.errorMessage}
                     InputProps={{
                         endAdornment:
                             props.type === "password" && <InputAdornment position="end">
@@ -58,6 +45,7 @@ export default function InputField(props) {
                             </InputAdornment>
 
                     }}
+                    onChange={handleChange}
                 />
             </div>
         </div>
