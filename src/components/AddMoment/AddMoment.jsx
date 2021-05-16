@@ -44,12 +44,18 @@ const rows = [
 export default function AddMoment(props) {
     const classes = useStyles();
     const [tags, setTags] = React.useState([]);
+
     const addTags = e => {
         if (e.key === "Enter" && e.target.value !== "") {
             setTags([...tags, e.target.value]);
             e.target.value = "";
         }
     };
+
+    const removeTag = index => {
+        setTags([...tags.filter(tag => tags.indexOf(tag) !== index)]);
+    };
+
     return (
         <div className="a-m-container">
             <div className="a-m-header"><span className="a-m-h-title">{props.title}</span></div>
@@ -58,23 +64,32 @@ export default function AddMoment(props) {
                 <div className="a-m-add-tags">
                     <div className="a-m-tag">
                         {/* <InputField label="Tags" placeholder="Enter tags" style={{ width: '100%' }} type="text" /> */}
-                        <TextField
-                            className={classes.margin}
-                            id="input-with-icon-textfield"
-                            label="Tags"
-                            placeholder="Enter tags"
-                            fullWidth
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        {tags.map((tag, index) => (
-                                            <Tag name={tag} index={index} />
-                                        ))}
-                                    </InputAdornment>
-                                ),
-                            }}
-                            onKeyUp={e => addTags(e)}
-                        />
+                        <div className="a-m-input-tag">
+                            {/* <InputAdornment position="start" style={{ flexWrap: 'wrap' }} >
+                                {tags.map((tag, index) => (
+                                    <Tag name={tag} index={index} removeTag={removeTag} />
+                                ))}
+                            </InputAdornment> */}
+                            <TextField
+                                className={classes.margin}
+                                id="input-with-icon-textfield"
+                                label="Tags"
+                                placeholder="Enter tags"
+                                fullWidth
+                                multiline
+                                // rows={4}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start" >
+                                            {tags.map((tag, index) => (
+                                                <Tag name={tag} index={index} removeTag={removeTag} />
+                                            ))}
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                onKeyUp={e => addTags(e)}
+                            />
+                        </div>
                     </div>
                     <div className="a-m-upload">
                         <div className='drag-drop-zone'
@@ -91,8 +106,8 @@ export default function AddMoment(props) {
                     </div>
                 </div>
             </div>}
-            { props.type === "add" && <button className="d-d-submit">Submit</button>}
-            { props.type === "list" &&
+            {props.type === "add" && <button className="d-d-submit">Submit</button>}
+            {props.type === "list" &&
                 <div className={classes.container}>
                     <TableContainer component={Paper} className={classes.container}>
                         <Table className={classes.table} aria-label="simple table">

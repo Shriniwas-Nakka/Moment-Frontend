@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Dashboard() {
+export default function Dashboard(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(true);
@@ -134,9 +134,10 @@ export default function Dashboard() {
         setMenu(!menu);
     };
 
-    const handleMenuItem = (e, value) => {
+    const handleMenuItem = (e, value, path) => {
         e.stopPropagation();
         setItem(value);
+        props.history.push(path);
     }
 
     return (
@@ -188,11 +189,11 @@ export default function Dashboard() {
                     </ListItem>
                     <Collapse in={menu} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding >
-                            <ListItem button className="text-font menu-button" onClick={e => handleMenuItem(e, "item1")}>
+                            <ListItem button className="text-font menu-button" onClick={e => handleMenuItem(e, "item1", "/dashboard/moments")}>
                                 <div className={clsx('text-bullet', item === "item1" && 'hide-item')}></div>
                                 <ListItemText primary="Moment List" className={clsx(classes.menuItem, item === "item1" && classes.selectedItem)} />
                             </ListItem>
-                            <ListItem button className="text-font menu-button" onClick={e => handleMenuItem(e, "item2")}>
+                            <ListItem button className="text-font menu-button" onClick={e => handleMenuItem(e, "item2", "/dashboard/addMoment")}>
                                 <div className={clsx('text-bullet', item === "item2" && 'hide-item')}></div>
                                 <ListItemText primary="Add new moment" className={clsx(classes.menuItem, item === "item2" && classes.selectedItem)} />
                             </ListItem>

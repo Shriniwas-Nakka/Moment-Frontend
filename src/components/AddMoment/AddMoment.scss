@@ -55,6 +55,10 @@
             @include flexbox(row, space-between, flex-start);
             .a-m-tag {
                 @include dimension(60%);
+                // .a-m-input-tag {
+                //     @include flexbox(row);
+                //     flex-wrap: wrap;
+                // }
             }
             .a-m-upload {
                 @include padding(0px, 40px);
