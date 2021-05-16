@@ -6,7 +6,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ListItem from '@material-ui/core/ListItem';
@@ -16,7 +15,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-
+import AddMomemt from '../../components/AddMoment/AddMoment';
+import { Route } from 'react-router-dom';
 import './Dashboard.scss';
 
 const drawerWidth = 300;
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     },
     content: {
         flexGrow: 1,
-        padding: theme.spacing(3),
+        // padding: theme.spacing(1),
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -206,6 +206,7 @@ export default function Dashboard() {
                 })}
             >
                 <div className={classes.drawerHeader} />
+                <Route exact path="/dashboard/addMoment" component={AddMomemt} />
             </main>
         </div>
     );

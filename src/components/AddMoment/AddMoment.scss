@@ -1,0 +1,102 @@
+@import "../../styles/styles.scss";
+@import "../../styles/constants.scss";
+
+@mixin dropBox($color, $weight) {
+    color: $color;
+    font-family: Maven Pro;
+    font-style: normal;
+    font-weight: $weight;
+    font-size: 17px;
+    line-height: 20px;
+}
+
+@mixin button {
+    @include dropBox($bg-color3, bold);
+    background-color: $bg-color1;
+    height: 50px;
+    width: 184px;
+    border-radius: 25px;
+    letter-spacing: 0em;
+    text-align: center;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.a-m-container {
+    @include flexbox(column);
+    box-shadow: 0px 4px 9px rgba(201, 201, 201, 0.09);
+    @include flexbox(column, flex-start, center);
+    .a-m-header {
+        background-color: $bg-color3;
+        @include dimension(100%, 62px);
+        @include flexbox(row, flex-start, center);
+        margin-bottom: 20px;
+        @include padding(0px, 30px);
+        .a-m-h-title {
+            font-family: Maven Pro;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 23px;
+            color: $bg-color1;
+        }
+    }
+    .a-m-box {
+        display: flex;
+        flex-direction: column;
+        @include dimension(98%);
+        background-color: $bg-color3;
+        box-shadow: 0px 0px 8px rgba(201, 201, 201, 0.25);
+        @include padding(40px, 60px);
+        .a-m-add-tags {
+            @include padding(25px, 0px);
+            @include dimension(100%);
+            @include flexbox(row, space-between, flex-start);
+            .a-m-tag {
+                @include dimension(60%);
+            }
+            .a-m-upload {
+                @include padding(0px, 40px);
+                @include dimension(400px);
+            }
+        }
+    }
+    .d-d-submit {
+        @include button();
+        @include margin(30px, 0px);
+    }
+}
+
+.drag-drop-zone {
+    @include padding(40px);
+    @include flexbox(column, center, center);
+    border: 1px dashed #c4c4c4;
+    box-sizing: border-box;
+    color: $bg-color1;
+    .d-d-icon {
+        @include dimension(50px, 50px);
+    }
+    .d-d-button {
+        @include button();
+    }
+}
+
+.drag-drop-zone p {
+    @include dropBox($bg-color1, normal);
+    @include margin(8px, 0px);
+}
+
+.drag-drop-zone span {
+    @include dropBox($bg-color1, 900);
+    @include margin(8px, 0px);
+}
+// .drag-drop-zone.inside-drag-area {
+//     opacity: 0.7;
+// }
+// .dropped-files li {
+//     color: #07f;
+//     padding: 3px;
+//     text-align: left;
+//     font-weight: bold;
+// }

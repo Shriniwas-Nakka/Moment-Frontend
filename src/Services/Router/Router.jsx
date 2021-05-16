@@ -6,7 +6,7 @@ export default function Router() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/dashboard" component={Dashboard} />
+                <Route path="/dashboard" component={Dashboard} />
                 <Redirect exact from="/" to="/signin" />
                 <Route path="/" component={MainPage} />
             </Switch>
