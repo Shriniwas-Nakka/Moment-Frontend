@@ -1,0 +1,41 @@
+@import "../../styles/styles.scss";
+@import "../../styles/constants.scss";
+
+.logo {
+    height: 120px;
+    width: 150px;
+}
+
+@mixin textFont($color) {
+    font-family: Maven Pro !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    color: $color !important;
+}
+
+.menu-list {
+    background-color: $bg-color1 !important;
+    @include textFont($bg-color3);
+}
+
+.menu-button {
+    padding-left: 30px !important;
+}
+
+.text-font {
+    @include textFont($bg-color1);
+}
+
+.text-bullet {
+    @include dimension(8px, 8px);
+    background-color: $bg-color1 !important;
+    border-radius: 50%;
+    @include margin(0px, 20px);
+    visibility: hidden;
+}
+
+.hide-item {
+    visibility: visible;
+}

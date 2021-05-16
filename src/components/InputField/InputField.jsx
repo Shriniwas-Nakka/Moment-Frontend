@@ -53,7 +53,7 @@ export default function InputField(props) {
                                     aria-label="toggle password visibility"
                                     onClick={props.handlePasswordShow}
                                 >
-                                    {props.passwordHide ? <VisibilityOff /> : <Visibility />}
+                                    {props.passwordHide ? <VisibilityOff style={{ color: 'lightgrey' }} /> : <Visibility style={{ color: 'lightgrey' }} />}
                                 </IconButton>
                             </InputAdornment>
 
