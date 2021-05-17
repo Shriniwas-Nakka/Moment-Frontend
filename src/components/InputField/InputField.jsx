@@ -28,6 +28,7 @@ export default function InputField(props) {
                     fullWidth
                     size="small"
                     name={props.name}
+                    value={props.value}
                     InputLabelProps={{
                         shrink: true,
                     }}

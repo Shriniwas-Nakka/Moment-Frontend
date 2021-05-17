@@ -124,7 +124,7 @@ export default function Dashboard(props) {
     const [open, setOpen] = React.useState(true);
     const [menu, setMenu] = React.useState(true);
     const [item, setItem] = React.useState("item2");
-
+    let { firstName, lastName } = JSON.parse(localStorage.getItem('userdata'));
 
     const handleDrawerOpen = () => {
         setOpen(!open);
@@ -159,7 +159,9 @@ export default function Dashboard(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                    <Avatar alt={firstName} src="" >
+                        {firstName.charAt(0) + '' + lastName.charAt(0).toUpperCase()}
+                    </Avatar>
 
                 </Toolbar>
             </AppBar>
