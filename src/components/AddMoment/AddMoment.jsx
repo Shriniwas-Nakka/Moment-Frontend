@@ -15,6 +15,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import InputField from '../InputField/InputField';
 import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
 import MomentService from '../../Services/momentService';
+import SnackBar from '../../components/SnackBar/SnackBar';
 import Tag from '../Tag/Tag';
 import './AddMoment.scss';
 
@@ -31,29 +32,27 @@ const useStyles = makeStyles({
     },
 });
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
 export default function AddMoment(props) {
     const classes = useStyles();
     const [tags, setTags] = React.useState([]);
     const [moments, setMoments] = React.useState([]);
     const [image, setImage] = React.useState("");
+    const [state, setState] = React.useState({
+        title: '',
+        titleFlag: false,
+        titleErrorMessage: '',
+        tagFlag: false,
+        tagErrorMessage: ''
+    });
     const inputFile = React.useRef(null);
+    const [snakbar, setSnakbar] = React.useState({
+        open: false,
+        message: ''
+    });
 
     useEffect(() => {
-        console.log(JSON.parse(localStorage.getItem('userdata')).token);
         let token = JSON.parse(localStorage.getItem('userdata')).token
         momentService.getMoment(token).then(data => {
-            console.log(data.data.data);
             setMoments(data.data.data)
         })
     }, [])
@@ -84,11 +83,102 @@ export default function AddMoment(props) {
         inputFile.current.click();
     };
 
+    let handleChange = (e) => {
+        setState({
+            ...state, [e.target.name]: e.target.value
+        })
+    }
+
+    let validate = () => {
+        setState(prev => ({
+            ...prev,
+            titleFlag: false,
+            titleErrorMessage: '',
+            tagFlag: false,
+            tagErrorMessage: ''
+        }))
+        let valid = true;
+        if (state.title.length == 0) {
+            setState(prev => ({
+                ...prev,
+                titleFlag: true, titleErrorMessage: 'Title is required !'
+            }))
+            valid = false;
+        }
+        if (tags.length == 0) {
+            setState(prev => ({
+                ...prev,
+                tagFlag: true, tagErrorMessage: 'Tag is required !'
+            }))
+            valid = false;
+        }
+        if (image.length == 0) {
+            setSnakbar({
+                open: true,
+                message: 'Image id required !'
+            })
+            valid = false;
+        }
+        return valid;
+    }
+
+    let submit = () => {
+        if (validate()) {
+            let formdata = new FormData();
+            formdata.append('title', state.title);
+            tags.forEach(element => {
+                formdata.append('tags', element);
+            });
+            formdata.append('image', image);
+
+            let token = JSON.parse(localStorage.getItem('userdata')).token;
+
+            momentService.createMoment(formdata, token).then(data => {
+                setSnakbar({
+                    open: true,
+                    message: data.data.message
+                })
+                setState({
+                    title: '',
+                    titleFlag: false,
+                    titleErrorMessage: '',
+                    tagFlag: false,
+                    tagErrorMessage: ''
+                });
+                setImage('');
+                setTags([]);
+            }).catch(error => {
+                setSnakbar({
+                    open: true,
+                    message: 'Failed to create moment !'
+                })
+                setState({
+                    title: '',
+                    titleFlag: false,
+                    titleErrorMessage: '',
+                    tagFlag: false,
+                    tagErrorMessage: ''
+                });
+                setImage('');
+                setTags([]);
+            })
+        } else {
+            console.log('Invalid !');
+        }
+    }
+
+    let closeSnackbar = () => {
+        setSnakbar({
+            open: false,
+            message: ''
+        })
+    }
+
     return (
         <div className="a-m-container">
             <div className="a-m-header"><span className="a-m-h-title">{props.title}</span></div>
             { props.type === "add" && <div className="a-m-box">
-                <InputField label="Title" placeholder="Sample title" style={{ width: '100%' }} type="text" />
+                <InputField name="title" value={state.title} label="Title" placeholder="Sample title" style={{ width: '100%' }} type="text" handleChange={handleChange} error={state.titleFlag} errorMessage={state.titleErrorMessage} />
                 <div className="a-m-add-tags">
                     <div className="a-m-tag">
                         <div className="a-m-input-tag">
@@ -99,6 +189,8 @@ export default function AddMoment(props) {
                                 placeholder="Enter tags"
                                 fullWidth
                                 multiline
+                                error={state.tagFlag}
+                                helperText={state.tagErrorMessage}
                                 // rows={4}
                                 InputProps={{
                                     startAdornment: (
@@ -133,7 +225,7 @@ export default function AddMoment(props) {
                     </div>
                 </div>
             </div>}
-            {props.type === "add" && <button className="d-d-submit">Submit</button>}
+            {props.type === "add" && <button className="d-d-submit" onClick={submit}>Submit</button>}
             {props.type === "list" &&
                 <div className={classes.container}>
                     <TableContainer component={Paper} className={classes.container}>
@@ -157,7 +249,7 @@ export default function AddMoment(props) {
                                         <TableCell align="center">{row.title}</TableCell>
                                         <TableCell align="center" style={{ display: 'flex', minHeight: '50px', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap' }}>
                                             {row.tags.map((tag, index) => (
-                                                <Tag name={tag} index={index} removeTag={removeTag} />
+                                                <Tag name={tag} index={index} />
                                             ))}
                                         </TableCell>
                                         <TableCell align="center">
@@ -171,6 +263,7 @@ export default function AddMoment(props) {
                     </TableContainer>
                 </div>
             }
+            <SnackBar open={snakbar.open} close={closeSnackbar} message={snakbar.message} />
         </div>
     )
 

@@ -124,7 +124,6 @@ export default function SignUp(props) {
     }
 
     let submit = () => {
-        console.log(state);
         if (validate()) {
             let data = {
                 firstName: state.firstName,
