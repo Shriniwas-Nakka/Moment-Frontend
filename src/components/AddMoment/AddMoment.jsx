@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,9 +14,11 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import InputField from '../InputField/InputField';
 import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
+import MomentService from '../../Services/momentService';
 import Tag from '../Tag/Tag';
 import './AddMoment.scss';
 
+const momentService = new MomentService();
 
 const useStyles = makeStyles({
     container: {
@@ -43,8 +45,18 @@ const rows = [
 export default function AddMoment(props) {
     const classes = useStyles();
     const [tags, setTags] = React.useState([]);
+    const [moments, setMoments] = React.useState([]);
     const [image, setImage] = React.useState("");
     const inputFile = React.useRef(null);
+
+    useEffect(() => {
+        console.log(JSON.parse(localStorage.getItem('userdata')).token);
+        let token = JSON.parse(localStorage.getItem('userdata')).token
+        momentService.getMoment(token).then(data => {
+            console.log(data.data.data);
+            setMoments(data.data.data)
+        })
+    }, [])
 
     const addTags = e => {
         if (e.key === "Enter" && e.target.value !== "") {
@@ -136,14 +148,18 @@ export default function AddMoment(props) {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows.map((row, index) => (
+                                {moments.map((row, index) => (
                                     <TableRow key={row.name}>
                                         <TableCell component="th" scope="row">
                                             {index + 1}
                                         </TableCell>
-                                        <TableCell align="center"><img src="" alt="" /></TableCell>
-                                        <TableCell align="center">{row.fat}</TableCell>
-                                        <TableCell align="center">{row.carbs}</TableCell>
+                                        <TableCell align="center"><img src={row.image} alt="" /></TableCell>
+                                        <TableCell align="center">{row.title}</TableCell>
+                                        <TableCell align="center" style={{ display: 'flex', minHeight: '50px', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap' }}>
+                                            {row.tags.map((tag, index) => (
+                                                <Tag name={tag} index={index} removeTag={removeTag} />
+                                            ))}
+                                        </TableCell>
                                         <TableCell align="center">
                                             <EditOutlinedIcon style={{ marginRight: '8px' }} className="table-icon" />
                                             <DeleteOutlineIcon className="table-icon" />
