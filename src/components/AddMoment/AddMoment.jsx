@@ -21,16 +21,20 @@ import './AddMoment.scss';
 
 const momentService = new MomentService();
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
         justifyContent: 'center',
         width: '98%',
+        [theme.breakpoints.down('sm')]: {
+            width: '100vw',
+            justifyContent: 'flex-start'
+        }
     },
     table: {
         minWidth: 650,
     },
-});
+}));
 
 export default function AddMoment(props) {
     const classes = useStyles();
@@ -115,7 +119,7 @@ export default function AddMoment(props) {
         if (image.length == 0) {
             setSnakbar({
                 open: true,
-                message: 'Image id required !'
+                message: 'Image is required !'
             })
             valid = false;
         }
@@ -186,12 +190,12 @@ export default function AddMoment(props) {
                                 className={classes.margin}
                                 id="input-with-icon-textfield"
                                 label="Tags"
+                                name="tags"
                                 placeholder="Enter tags"
                                 fullWidth
                                 multiline
                                 error={state.tagFlag}
                                 helperText={state.tagErrorMessage}
-                                // rows={4}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start" >

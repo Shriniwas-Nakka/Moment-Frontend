@@ -112,3 +112,22 @@
 //     text-align: left;
 //     font-weight: bold;
 // }
+
+@media only screen and (max-width: 600px) {
+    .a-m-container {
+        .a-m-box {
+            @include padding(30px, 24px);
+            .a-m-add-tags {
+                flex-direction: column !important;
+                align-items: center;
+                .a-m-tag {
+                    width: 100% !important;
+                    margin-bottom: 40px;
+                    .a-m-input-tag {
+                        flex-direction: column;
+                    }
+                }
+            }
+        }
+    }
+}

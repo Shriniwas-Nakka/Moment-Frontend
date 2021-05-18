@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -16,7 +16,10 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import AddMomemt from '../../components/AddMoment/AddMoment';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
 import { Route } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import './Dashboard.scss';
 
 const drawerWidth = 300;
@@ -24,6 +27,7 @@ const drawerWidth = 300;
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
+        position: 'relative'
     },
     menu: {
         width: '100%',
@@ -57,7 +61,10 @@ const useStyles = makeStyles((theme) => ({
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
-        border: 'none'
+        border: 'none',
+        [theme.breakpoints.down('sm')]: {
+            position: 'absolute'
+        }
     },
     drawerPaper: {
         width: drawerWidth,
@@ -81,6 +88,9 @@ const useStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.leavingScreen,
         }),
         marginLeft: -drawerWidth,
+        [theme.breakpoints.down('sm')]: {
+            marginLeft: 0
+        },
         border: 'none'
     },
     contentShift: {
@@ -115,16 +125,43 @@ const useStyles = makeStyles((theme) => ({
         '& .MuiTypography-body1': {
             fontWeight: '550',
         }
+    },
+    popover: {
+        '& .MuiPopover-paper': {
+            height: '200px',
+            padding: theme.spacing(2),
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+        }
     }
 }));
 
 export default function Dashboard(props) {
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const [menu, setMenu] = React.useState(true);
     const [item, setItem] = React.useState("item2");
-    let { firstName, lastName } = JSON.parse(localStorage.getItem('userdata'));
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const popup = Boolean(anchorEl);
+    const id = popup ? 'simple-popover' : undefined;
+
+    let { firstName, lastName, email } = JSON.parse(localStorage.getItem('userdata'));
+
+    const openPopup = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    useEffect(() => {
+        setItem('item2');
+        props.history.push('/dashboard/addMoment')
+    }, []);
 
     const handleDrawerOpen = () => {
         setOpen(!open);
@@ -138,6 +175,11 @@ export default function Dashboard(props) {
         e.stopPropagation();
         setItem(value);
         props.history.push(path);
+    }
+
+    const logout = () => {
+        localStorage.removeItem('userdata');
+        props.history.push('/signin');
     }
 
     return (
@@ -159,9 +201,32 @@ export default function Dashboard(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Avatar alt={firstName} src="" >
+                    <Avatar alt={firstName} src="" onClick={openPopup} >
                         {firstName.charAt(0) + '' + lastName.charAt(0).toUpperCase()}
                     </Avatar>
+
+                    <Popover
+                        id={id}
+                        open={popup}
+                        anchorEl={anchorEl}
+                        onClose={handleClose}
+                        className={classes.popover}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                        }}
+                    >
+                        <Avatar alt={firstName} src="" onClick={openPopup} >
+                            {firstName.charAt(0) + '' + lastName.charAt(0).toUpperCase()}
+                        </Avatar>
+                        <Typography className={classes.typography}>{firstName} {lastName}</Typography>
+                        <Typography className={classes.typography}>{email}</Typography>
+                        <Button onClick={logout}>Logout</Button>
+                    </Popover>
 
                 </Toolbar>
             </AppBar>
