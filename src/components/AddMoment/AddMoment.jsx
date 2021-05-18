@@ -17,6 +17,7 @@ import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
 import MomentService from '../../Services/momentService';
 import SnackBar from '../../components/SnackBar/SnackBar';
 import Tag from '../Tag/Tag';
+import Avatar from '@material-ui/core/Avatar';
 import './AddMoment.scss';
 
 const momentService = new MomentService();
@@ -34,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
     table: {
         minWidth: 650,
     },
+    small: {
+        width: theme.spacing(5),
+        height: theme.spacing(5),
+    }
 }));
 
 export default function AddMoment(props) {
@@ -236,7 +241,7 @@ export default function AddMoment(props) {
                         <Table className={classes.table} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell >Sr.No<ArrowUpwardOutlinedIcon fontSize="small" className="table-icon" /></TableCell>
+                                    <TableCell align="center" >Sr.No<ArrowUpwardOutlinedIcon fontSize="small" className="table-icon" /></TableCell>
                                     <TableCell align="center">Image</TableCell>
                                     <TableCell align="center">Title<ArrowUpwardOutlinedIcon fontSize="small" className="table-icon" /></TableCell>
                                     <TableCell align="center">Tags<ArrowUpwardOutlinedIcon fontSize="small" className="table-icon" /></TableCell>
@@ -246,10 +251,13 @@ export default function AddMoment(props) {
                             <TableBody>
                                 {moments.map((row, index) => (
                                     <TableRow key={row.name}>
-                                        <TableCell component="th" scope="row">
+                                        <TableCell align="center" component="th" scope="row">
                                             {index + 1}
                                         </TableCell>
-                                        <TableCell align="center"><img src={row.image} alt="" /></TableCell>
+                                        <TableCell align="center" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                            {/* <img src={row.image} alt="" /> */}
+                                            <Avatar alt={row.image} src="" className={classes.small} >{row.image.charAt(0)}</Avatar>
+                                        </TableCell>
                                         <TableCell align="center">{row.title}</TableCell>
                                         <TableCell align="center" style={{ display: 'flex', minHeight: '50px', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap' }}>
                                             {row.tags.map((tag, index) => (
